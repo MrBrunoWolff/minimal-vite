@@ -36,9 +36,9 @@
     "url": "https://github.com/MrBrunoWolff/minimal-vite.git"
   },
   "devDependencies": {
-    "terser": "latest",
-    "typescript": "latest",
-    "vite": "latest"
+    "terser": "5.46.2",
+    "typescript": "6.0.3",
+    "vite": "8.0.10"
   },
   "engines": {
     "node": ">=18"
