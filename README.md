@@ -21,13 +21,9 @@ A lightweight and modern starter template for TypeScript projects using Vite, no
 
 ### 💫 Create a New Project (Easiest)
 
-Create a new project with a single command using npx or bunx:
+Create a new project with a single command using bunx:
 
 ```bash
-# Using npm
-npx minimal-vite my-project
-
-# Using bun
 bunx minimal-vite my-project
 ```
 
@@ -45,8 +41,6 @@ After creating your project:
 cd my-project
 
 # Start the development server
-npm start
-# or with bun
 bun start
 ```
 
@@ -55,9 +49,7 @@ Your app will be available at `http://localhost:3000` with hot module replacemen
 ### 📦 Build for Production
 
 ```bash
-npm run build
-# or
-bun build
+bun run build
 ```
 
 The optimized production build will be in the `dist` directory, ready for deployment.
@@ -65,9 +57,7 @@ The optimized production build will be in the `dist` directory, ready for deploy
 ### 👀 Preview Production Build
 
 ```bash
-npm run preview
-# or
-bun preview
+bun run preview
 ```
 
 ## 📁 Project Structure
@@ -97,8 +87,8 @@ This template is intentionally minimal to serve as a clean starting point. You c
 
 ```bash
 # Install React
-npm install react react-dom
-npm install -D @types/react @types/react-dom
+bun add react react-dom
+bun add -D @types/react @types/react-dom
 
 # Add JSX support to vite.config.ts
 # and start building React components!
@@ -129,8 +119,6 @@ git commit -m "Initial commit"
 3. Install dependencies:
 
 ```bash
-npm install
-# or
 bun install
 ```
 
