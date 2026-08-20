@@ -24,7 +24,7 @@ A lightweight and modern starter template for TypeScript projects using Vite, no
 Create a new project with a single command using bunx:
 
 ```bash
-bunx minimal-vite my-project
+bunx @mrbrunowolff/minimal-vite my-project
 ```
 
 The interactive CLI will:

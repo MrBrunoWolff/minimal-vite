@@ -1,7 +1,10 @@
 {
-  "name": "minimal-vite",
+  "name": "@mrbrunowolff/minimal-vite",
   "private": false,
   "version": "0.1.0",
+  "publishConfig": {
+    "access": "public"
+  },
   "description": "A minimal Vite starter template with TypeScript support",
   "scripts": {
     "start": "vite",

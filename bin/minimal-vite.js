@@ -28,7 +28,7 @@ if (args.includes('--help') || args.includes('-h')) {
     -h, --help       Display this help message
   
   Example:
-    npx minimal-vite my-awesome-app
+    npx @mrbrunowolff/minimal-vite my-awesome-app
   `);
   process.exit(0);
 }
