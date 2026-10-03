@@ -1,150 +1,78 @@
-# 🚀 Minimal Vite
+# Minimal Vite
 
-[![Vite](https://img.shields.io/badge/Vite-Latest-646CFF?style=flat-square&logo=vite)](https://vitejs.dev/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-Latest-3178C6?style=flat-square&logo=typescript)](https://www.typescriptlang.org/)
-[![License](https://img.shields.io/badge/License-MIT-green.svg?style=flat-square)](LICENSE)
-[![npm](https://img.shields.io/npm/v/minimal-vite?style=flat-square&logo=npm)](https://www.npmjs.com/package/minimal-vite)
-[![Node](https://img.shields.io/node/v/minimal-vite?style=flat-square&logo=nodedotjs)](https://nodejs.org)
+A minimal Vite starter template with strict TypeScript and no runtime dependencies.
 
-A lightweight and modern starter template for TypeScript projects using Vite, now with an easy-to-use CLI tool.
+[![License: MIT](https://img.shields.io/badge/license-MIT-green?style=flat-square)](LICENSE)
 
-## ✨ Features
+## Features
 
-- ⚡️ Fast development with [Vite](https://vitejs.dev/)
-- 🔵 TypeScript support out of the box
-- 📦 Minimal dependencies
-- 🧩 Simple and clean project structure
-- 🛠️ Easy scaffolding with CLI tool
-- 🔄 Support for npm and [Bun](https://bun.sh/)
+- Vite 8 and TypeScript 7 with a strict `tsconfig.json` (`strict`, `noUnusedLocals`, `noUnusedParameters`, `noImplicitReturns`)
+- No runtime dependencies; only `vite`, `typescript` and `terser` as dev dependencies
+- Dev server on port 3000 that opens the browser on start
+- Production build type-checks with `tsc`, then emits a Terser-minified bundle with source maps and a relative base path (`./`)
+- `bunfig.toml` refuses npm versions published less than 3 days ago (`minimumReleaseAge`)
+- GitHub Actions CI runs typecheck, build and `bun audit` on every push and pull request
+- Scaffolding CLI in `bin/minimal-vite.js` that clones the template into a fresh git repository
 
-## 🚦 Getting Started
+## Quick start
 
-### 💫 Create a New Project (Easiest)
+### Clone
 
-Create a new project with a single command using bunx:
-
-```bash
-bunx @mrbrunowolff/minimal-vite my-project
+```sh
+git clone https://github.com/MrBrunoWolff/minimal-vite.git
+cd minimal-vite
+bun install
+bun run start
 ```
 
-The interactive CLI will:
-1. Ask for your project name (or use the provided one)
-2. Let you choose between npm or bun as package manager
-3. Set up everything for immediate development
+## Scripts
 
-### 🚀 Development Workflow
+| Command             | Description                                                                         |
+| ------------------- | ----------------------------------------------------------------------------------- |
+| `bun run start`     | Start the Vite dev server on port 3000                                              |
+| `bun run build`     | Type-check with `tsc`, then build for production into `dist/`                       |
+| `bun run typecheck` | Type-check with `tsc --noEmit`                                                      |
+| `bun run preview`   | Serve the production build from `dist/` locally                                     |
+| `bun run check`     | Run `typecheck` and `build` in parallel, reporting both even if one fails           |
+| `bun run audit`     | Run `bun audit` and fail on any high or critical advisory                           |
 
-After creating your project:
-
-```bash
-# Navigate to your project
-cd my-project
-
-# Start the development server
-bun start
-```
-
-Your app will be available at `http://localhost:3000` with hot module replacement enabled.
-
-### 📦 Build for Production
-
-```bash
-bun run build
-```
-
-The optimized production build will be in the `dist` directory, ready for deployment.
-
-### 👀 Preview Production Build
-
-```bash
-bun run preview
-```
-
-## 📁 Project Structure
+## Project structure
 
 ```
 minimal-vite/
+├── .github/workflows/
+│   └── ci.yml         # Quality checks and npm publishing
+├── bin/
+│   └── minimal-vite.js # Scaffolding CLI
 ├── src/
 │   ├── main.ts        # Application entry point
 │   ├── style.css      # Global styles
-│   └── vite-env.d.ts  # TypeScript declarations for Vite
-├── index.html         # HTML template
-├── tsconfig.json      # TypeScript configuration
-├── package.json       # Project dependencies and scripts
-└── vite.config.ts     # Vite configuration
+│   └── vite-env.d.ts  # Vite client type declarations
+├── bunfig.toml        # Bun install settings (release-age guard)
+├── favicon.svg
+├── index.html         # HTML entry
+├── LICENSE
+├── package.json
+├── tsconfig.json
+└── vite.config.ts     # Dev server and build configuration
 ```
 
-## 🔧 Customization
+## Scaffolding CLI
 
-This template is intentionally minimal to serve as a clean starting point. You can easily extend it with:
+`bin/minimal-vite.js` creates a new project from this template:
 
-- 🔄 Frontend frameworks like React, Vue, or Svelte
-- 🎨 CSS preprocessors like SASS or LESS
-- 🧪 Testing libraries
-- 🔍 Linting and formatting tools
-
-### Example: Adding React
-
-```bash
-# Install React
-bun add react react-dom
-bun add -D @types/react @types/react-dom
-
-# Add JSX support to vite.config.ts
-# and start building React components!
+```sh
+node bin/minimal-vite.js my-app
 ```
 
-## 🔍 Advanced Usage
+It shallow-clones this repository into `./my-app`, removes the template's git history, sets the package name, version `0.1.0` and `private: true`, makes an initial commit, and installs dependencies with the package manager you choose at the prompt (`npm` or `bun`, default `npm`). If no name is given it prompts for one (default `my-vite-app`). Flags: `-h`/`--help`, `-v`/`--version`.
 
-### Manual Setup (Alternative)
+The package (`@mrbrunowolff/minimal-vite`) is not yet published on npm, so `bunx @mrbrunowolff/minimal-vite` does not work yet.
 
-If you prefer to manually set up your project:
+## Publishing
 
-1. Clone the repository:
+The `publish` job in `.github/workflows/ci.yml` runs after the quality job on pushes to `main` and on manual runs (`gh workflow run ci.yml`). It publishes with npm trusted publishing (OIDC, no token) when the `package.json` version is not already on npm. Trusted publishing cannot do a package's first publish: publish once manually, then configure the trusted publisher on npm (repository `MrBrunoWolff/minimal-vite`, workflow `ci.yml`). Until then the job skips without failing.
 
-```bash
-git clone https://github.com/MrBrunoWolff/minimal-vite.git my-project
-cd my-project
-```
+## License
 
-2. Remove git history and initialize a new repository:
-
-```bash
-rm -rf .git
-git init
-git add .
-git commit -m "Initial commit"
-```
-
-3. Install dependencies:
-
-```bash
-bun install
-```
-
-4. Start building!
-
-### Configuration
-
-The template includes a pre-configured `vite.config.ts` with:
-
-- Development server on port 3000 with auto-open browser
-- Source maps for debugging
-- Terser for optimal production builds
-- Proper base path configuration
-
-You can customize this configuration to fit your specific needs.
-
-## 🤝 Contributing
-
-Contributions to improve this template are welcome!
-
-1. Fork the repository
-2. Create your feature branch: `git checkout -b my-feature`
-3. Commit your changes: `git commit -am 'Add some feature'`
-4. Push to the branch: `git push origin my-feature`
-5. Submit a pull request
-
-## 📄 License
-
-This project is licensed under the MIT License - see the LICENSE file for details. 
+MIT — see [LICENSE](LICENSE).
