@@ -12,7 +12,10 @@
     "typecheck": "tsc --noEmit",
     "preview": "vite preview",
     "check": "bun run --parallel --no-exit-on-error typecheck build",
-    "audit": "bun audit --audit-level=high"
+    "audit": "bun audit --audit-level=high",
+    "check:ci": "node scripts/quality.mjs",
+    "check:code": "node scripts/quality.mjs code",
+    "check:security": "node scripts/quality.mjs security"
   },
   "bin": {
     "minimal-vite": "bin/minimal-vite.js"
@@ -49,5 +52,5 @@
   "engines": {
     "node": ">=24"
   },
-  "packageManager": "bun@1.4.0"
+  "packageManager": "bun@1.4.2"
 }
